@@ -1,0 +1,20 @@
+services:
+  pyspark:
+    image: jupyter/pyspark-notebook:latest
+    container_name: pca-notebook
+    environment:
+      # Pour éviter de récupérer l’URL complexe avec token aléatoire
+      JUPYTER_TOKEN: "admin"
+    ports:
+      - "8888:8888"
+      - "5001:5001"
+    volumes:
+      # Dossier de travail partagé avec le container
+      - ./work:/home/jovyan/work
+      - ./data:/home/jovyan/data
+      - ./notebooks:/home/jovyan/notebooks
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
